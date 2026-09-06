@@ -34,7 +34,7 @@ class AboutWindow(Gtk.ApplicationWindow):
         visit_label = Gtk.Label(label="visit me at:")
         visit_box.append(visit_label)
         nkode_link = Gtk.LinkButton.new_with_label(
-            uri="https://nkode.gr",
+            uri="https://nkode.gr/EN/",
             label="nkode.gr"
         )
         visit_box.append(nkode_link)

@@ -1,7 +1,7 @@
 import gi
 gi.require_version("Gtk", "4.0")
 
-from gi.repository import Gtk, Gdk
+from gi.repository import Gtk, Gdk, Gio
 from nkolor.ui.widgets.history_bar import HistoryBar
 from nkolor.ui.widgets.pick_button import PickButton
 from nkolor.ui.widgets.color_preview import ColorPreview
@@ -41,11 +41,11 @@ class MainWindow(Gtk.ApplicationWindow) :
 
         if layout == ScreenSize.LARGE:
             self.add_css_class("large-screen")
-            self.set_default_size(370, 180)
-            preview_size = 45
-            similar_size = 18
+            self.set_default_size(360, 180)
+            preview_size = 40
+            similar_size = 16
             values_button_size = 22
-            history_colors_size = 20
+            history_colors_size = 18
             history_spacing = 4
         else:
             self.add_css_class("compact-screen")
