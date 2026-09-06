@@ -19,6 +19,17 @@ entry:focus-visible {
   outline-offset: 0px;
 }
 
+.icon-button {
+    border: 1px solid #642727;
+    border-radius: 5px;
+}
+
+.info-button {
+    border: none;
+    background: none;
+    box-shadow: none;
+}
+
 .magnifier-window{
     border: 1px solid gray;
 }
@@ -56,20 +67,19 @@ window.compact-screen .window-root-child {
 }
 
 window.compact-screen .icon-button {
-    border: 1px solid #642727;
-    border-radius: 5px;
     padding: 3px;
     min-width: 40px;
     min-height: 40px;
 }
 
 window.compact-screen .info-button {
-    border: none;
-    background: none;
-    box-shadow: none;
     padding: 0px;
     min-width: 25px;
     min-height: 25px;
+}
+
+window.compact-screen .color-values-button{
+    padding: 4px;
 }
 
 window.compact-screen .value-bar entry {
@@ -91,20 +101,19 @@ window.large-screen .window-root-child {
 }
 
 window.large-screen .icon-button {
-    border: 1px solid #642727;
-    border-radius: 5px;
     padding: 3px;
     min-width: 30px;
     min-height: 30px;
 }
 
 window.large-screen .info-button {
-    border: none;
-    background: none;
-    box-shadow: none;
     padding: 0px;
     min-width: 20px;
     min-height: 20px;
+}
+
+window.large-screen .color-values-button{
+    padding: 2px;
 }
 
 window.large-screen .value-bar entry {
