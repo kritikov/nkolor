@@ -5,7 +5,7 @@ from nkolor.resources.resources import Resources
 class ColorPickerApp(Gtk.Application):
 
     def __init__(self) -> None:
-        super().__init__(application_id="com.nick.colorpicker")
+        super().__init__(application_id="io.github.kritikov.nkolor")
 
     def do_activate(self):
         self.load_css()
