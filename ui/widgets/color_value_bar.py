@@ -1,5 +1,5 @@
 from gi.repository import Gtk, Gdk, GObject
-from nKolor.resources.resources import Resources
+from nkolor.resources.resources import Resources
 
 class ColorValueBar(Gtk.Box):
     
@@ -8,16 +8,15 @@ class ColorValueBar(Gtk.Box):
         "edit": (GObject.SignalFlags.RUN_FIRST, None, ()),
     }
 
-    def __init__(self, title: str, value: str):
+    def __init__(self, title: str, value: str, button_size: int = 28):
         super().__init__(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         
         self.add_css_class("value-bar")
-        self.build_ui(title, value)
+        self.build_ui(title, value, button_size)
         
 
-    def build_ui(self, title: str, value: str)-> None:
+    def build_ui(self, title: str, value: str, button_size: int)-> None:
         title_lbl = Gtk.Label(label=f"{title}:")
-        title_lbl.set_size_request(50, -1)
         title_lbl.set_xalign(0)
         self.append(title_lbl)
 
@@ -33,8 +32,9 @@ class ColorValueBar(Gtk.Box):
 
         self.copy_btn = Gtk.Button()
         self.copy_btn.set_cursor(Gdk.Cursor.new_from_name("pointer"))
+        self.copy_btn.add_css_class("color-values-button")
         copy_icon = Gtk.Image.new_from_file(Resources.icon("copy.png"))
-        copy_icon.set_pixel_size(28)
+        copy_icon.set_pixel_size(button_size)
         self.copy_btn.set_child(copy_icon);
         self.copy_btn.set_tooltip_text("copy to clipboard")
         self.copy_btn.connect("clicked", self.copy_to_clipboard)
@@ -43,8 +43,9 @@ class ColorValueBar(Gtk.Box):
 
         self.edit_btn = Gtk.Button()
         self.edit_btn.set_cursor(Gdk.Cursor.new_from_name("pointer"))
+        self.edit_btn.add_css_class("color-values-button")
         edit_icon = Gtk.Image.new_from_file(Resources.icon("edit.png"))
-        edit_icon.set_pixel_size(28)
+        edit_icon.set_pixel_size(button_size)
         self.edit_btn.set_child(edit_icon);
         self.edit_btn.set_tooltip_text("edit the color")
         self.edit_btn.connect("clicked", lambda w: self.emit("edit"))

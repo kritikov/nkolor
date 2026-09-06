@@ -1,12 +1,13 @@
 import gi
 gi.require_version("Gtk", "4.0")
-from gi.repository import Gtk, Gdk, Gio
+from gi.repository import Gtk
 
 class AboutWindow(Gtk.ApplicationWindow):
 
     def __init__(self, app: Gtk.Application):
         super().__init__(title="about")
-        self.set_resizable(False)
+
+        #self.set_resizable(False)
         self.set_default_size(450, -1)
 
 
@@ -20,7 +21,7 @@ class AboutWindow(Gtk.ApplicationWindow):
         app_name.add_css_class("about-title")
         root_child.append(app_name)
 
-        version = Gtk.Label(label="Version: 1.0.0")
+        version = Gtk.Label(label="Version: 1.1.0")
         version.add_css_class("about-subtitle")
         root_child.append(version)
 
@@ -33,7 +34,7 @@ class AboutWindow(Gtk.ApplicationWindow):
         visit_label = Gtk.Label(label="visit me at:")
         visit_box.append(visit_label)
         nkode_link = Gtk.LinkButton.new_with_label(
-            uri="https://nkode.gr",
+            uri="https://nkode.gr/EN/",
             label="nkode.gr"
         )
         visit_box.append(nkode_link)

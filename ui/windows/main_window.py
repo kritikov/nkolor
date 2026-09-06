@@ -2,19 +2,20 @@ import gi
 gi.require_version("Gtk", "4.0")
 
 from gi.repository import Gtk, Gdk, Gio
-from nKolor.ui.widgets.history_bar import HistoryBar
-from nKolor.ui.widgets.pick_button import PickButton
-from nKolor.ui.widgets.color_preview import ColorPreview
-from nKolor.ui.widgets.color_values import ColorValues
-from nKolor.utils.color import Color
-from nKolor.ui.windows.magnifier_window import MagnifierWindow
-from nKolor.ui.windows.hex_editor_window import HexEditorWindow
-from nKolor.ui.windows.rgb_editor_window import RgbEditorWindow
-from nKolor.ui.windows.hsl_editor_window import HslEditorWindow
-from nKolor.ui.windows.hsv_editor_window import HsvEditorWindow
-from nKolor.ui.windows.hsv_picker_window import HSVPickerWindow
-from nKolor.ui.windows.about_window import AboutWindow
-from nKolor.resources.resources import Resources
+from nkolor.ui.widgets.history_bar import HistoryBar
+from nkolor.ui.widgets.pick_button import PickButton
+from nkolor.ui.widgets.color_preview import ColorPreview
+from nkolor.ui.widgets.color_values import ColorValues
+from nkolor.utils.color import Color
+from nkolor.ui.windows.magnifier_window import MagnifierWindow
+from nkolor.ui.windows.hex_editor_window import HexEditorWindow
+from nkolor.ui.windows.rgb_editor_window import RgbEditorWindow
+from nkolor.ui.windows.hsl_editor_window import HslEditorWindow
+from nkolor.ui.windows.hsv_editor_window import HsvEditorWindow
+from nkolor.ui.windows.hsv_picker_window import HSVPickerWindow
+from nkolor.ui.windows.about_window import AboutWindow
+from nkolor.resources.resources import Resources
+from nkolor.utils.screen_size_enum import ScreenSize
 
 
 class MainWindow(Gtk.ApplicationWindow) : 
@@ -23,12 +24,12 @@ class MainWindow(Gtk.ApplicationWindow) :
         super().__init__(application=app)
         
         self.set_title("nKolor")
-        self.set_default_size(520, 220)
         self.set_resizable(False) 
         self.current_color = Color(50, 180, 150) # initial color
         self.magnifier = MagnifierWindow()
 
-        self.build_ui()
+        self.layout = self.setup_screen_layout()
+        self.build_ui(self.layout)
 
         # Key controller για ESC
         key_controller = Gtk.EventControllerKey()
@@ -36,7 +37,24 @@ class MainWindow(Gtk.ApplicationWindow) :
         self.add_controller(key_controller)
 
 
-    def build_ui(self) -> None:
+    def build_ui(self, layout: ScreenSize) -> None:
+
+        if layout == ScreenSize.LARGE:
+            self.add_css_class("large-screen")
+            self.set_default_size(360, 180)
+            preview_size = 40
+            similar_size = 16
+            values_button_size = 22
+            history_colors_size = 18
+            history_spacing = 4
+        else:
+            self.add_css_class("compact-screen")
+            preview_size = 70
+            similar_size = 20
+            values_button_size = 25
+            history_colors_size = 25
+            history_spacing = 8
+        
         root_child = Gtk.Box(orientation = Gtk.Orientation.VERTICAL, spacing=10)
         root_child.add_css_class("window-root-child")
         self.set_child(root_child)  
@@ -46,7 +64,7 @@ class MainWindow(Gtk.ApplicationWindow) :
         second_row = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=30)
         third_row = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         left_col = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=20)
-        right_col = Gtk.Box(orientation = Gtk.Orientation.VERTICAL, spacing=12)
+        right_col = Gtk.Box(orientation = Gtk.Orientation.VERTICAL, spacing=5)
         second_row.append(left_col)
         second_row.append(right_col)
         root_child.append(first_row)
@@ -67,7 +85,7 @@ class MainWindow(Gtk.ApplicationWindow) :
         first_row.append(info_btn)
 
         # elements
-        left_col_buttons = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        left_col_buttons = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
         left_col.append(left_col_buttons)
 
         pick_button = PickButton()
@@ -85,13 +103,12 @@ class MainWindow(Gtk.ApplicationWindow) :
         hsv_selector_btn.connect("clicked", self.open_hsv_selector)
         left_col_buttons.append(hsv_selector_btn)
 
-        self.color_preview = ColorPreview()
-        self.color_preview.set_size_request(100, -1)
+        self.color_preview = ColorPreview(preview_size, similar_size)
         self.color_preview.connect("similar_color_selected", self.on_similar_color_selected)
         self.color_preview.set_color(self.current_color)
         left_col.append(self.color_preview)
         
-        self.color_values = ColorValues()
+        self.color_values = ColorValues(values_button_size)
         self.color_values.connect("edit_hex", self.on_edit_hex)
         self.color_values.connect("edit_rgb", self.on_edit_rgb)
         self.color_values.connect("edit_hsl", self.on_edit_hsl)
@@ -99,7 +116,7 @@ class MainWindow(Gtk.ApplicationWindow) :
         self.color_values.set_color(self.current_color)
         right_col.append(self.color_values)
 
-        self.history_bar = HistoryBar()
+        self.history_bar = HistoryBar(size=history_colors_size, spacing=history_spacing)
         self.history_bar.connect("color-selected", self.on_history_color_selected)
         third_row.append(self.history_bar)
 
@@ -172,22 +189,22 @@ class MainWindow(Gtk.ApplicationWindow) :
 
     # open the hex editor to edit the color
     def on_edit_hex(self, widget) -> None:
-        win = HexEditorWindow(self.get_application(), self.current_color)
+        win = HexEditorWindow(self.get_application(), self.current_color, self.layout)
         self.open_color_editor(win)
 
     # open the rgb editor to edit the color
     def on_edit_rgb(self, widget) -> None:
-        win = RgbEditorWindow(self.get_application(), self.current_color)
+        win = RgbEditorWindow(self.get_application(), self.current_color, self.layout)
         self.open_color_editor(win)
 
     # open the hsl editor to edit the color
     def on_edit_hsl(self, widget) -> None:
-        win = HslEditorWindow(self.get_application(), self.current_color)
+        win = HslEditorWindow(self.get_application(), self.current_color, self.layout)
         self.open_color_editor(win)
 
     # open the hsv editor to edit the color
     def on_edit_hsv(self, widget) -> None:
-        win = HsvEditorWindow(self.get_application(), self.current_color)
+        win = HsvEditorWindow(self.get_application(), self.current_color, self.layout)
         self.open_color_editor(win)
 
 
@@ -202,7 +219,7 @@ class MainWindow(Gtk.ApplicationWindow) :
 
     # open the hsv color picker
     def open_hsv_selector(self, widget) -> None:
-        win = HSVPickerWindow(self.get_application(), self.current_color)
+        win = HSVPickerWindow(self.get_application(), self.current_color, self.layout)
         win.connect("color_selected", self.on_color_edited)
         win.set_transient_for(self)
         win.set_modal(True)
@@ -223,3 +240,21 @@ class MainWindow(Gtk.ApplicationWindow) :
             self.close()
             return True
         return False
+
+    def setup_screen_layout(self) -> ScreenSize:
+        display = Gdk.Display.get_default()
+        if display:
+            monitor = display.get_monitors().get_item(0)
+            if monitor:
+                width_mm = monitor.get_width_mm()
+                if width_mm > 450:
+                    return ScreenSize.LARGE
+                else:
+                    return ScreenSize.SMALL
+
+        # Fallback
+        return ScreenSize.SMALL
+
+    
+
+    

@@ -1,6 +1,14 @@
-/* Γενικό window */
+/* ==========================================
+1. GENERAL INSTRUCTIONS (works for all screens)
+================================---------- */
+
 window {
     background-color: #e4dffb;
+}
+
+.window-root-child {
+    margin: 10px; 
+    font-size: 16px;
 }
 
 button:focus-visible, 
@@ -11,49 +19,15 @@ entry:focus-visible {
   outline-offset: 0px;
 }
 
-.window-root-child{
-    margin: 15px;
-}
-
 .icon-button {
     border: 1px solid #642727;
     border-radius: 5px;
-    box-shadow: none;
-    padding: 4px;
-    min-width: 50px;
-    min-height: 50px;
 }
+
 .info-button {
     border: none;
     background: none;
     box-shadow: none;
-    padding: 0px;
-    min-width: 25px;
-    min-height: 25px;
-}
-
-.value-bar {
-    padding: 0px;
-}
-.value-bar label {
-    font-weight: bold;
-}
-.value-bar entry {
-    background: whitesmoke;
-    padding: 2px 5px;
-}
-.value-bar button:hover {
-    background: none;
-}
-.value-bar button:active {
-    background: none;
-}
-
-.history_bar{
-    margin: 8px;
-}
-.history_bar box {
-    padding-bottom: 14px;
 }
 
 .magnifier-window{
@@ -65,6 +39,99 @@ entry:focus-visible {
     font-size: 2em;
     color: #260755;
 }
+
+.value-bar {
+    padding: 0px;
+}
+.value-bar label {
+    font-weight: bold;
+}
+
+.value-bar button:hover {
+    background: none;
+}
+.value-bar button:active {
+    background: none;
+}
+.history_bar box {
+    padding-bottom: 14px;
+}
+
+
+/* ==========================================
+2. COMPACT LAYOUT (small screens)
+================================---------- */
+
+window.compact-screen .window-root-child {
+    font-size: 16px;
+}
+
+window.compact-screen .icon-button {
+    padding: 3px;
+    min-width: 40px;
+    min-height: 40px;
+}
+
+window.compact-screen .info-button {
+    padding: 0px;
+    min-width: 25px;
+    min-height: 25px;
+}
+
+window.compact-screen .color-values-button{
+    padding: 4px;
+}
+
+window.compact-screen .value-bar entry {
+    background: whitesmoke;
+    padding: 2px 5px;
+}
+
+window.compact-screen .history_bar {
+    margin: 8px;
+}
+
+
+/* ==========================================
+3. LARGE LAYOUT (big screens)
+================================---------- */
+
+window.large-screen .window-root-child {
+    font-size: 13px;
+}
+
+window.large-screen .icon-button {
+    padding: 3px;
+    min-width: 30px;
+    min-height: 30px;
+}
+
+window.large-screen .info-button {
+    padding: 0px;
+    min-width: 20px;
+    min-height: 20px;
+}
+
+window.large-screen .color-values-button{
+    padding: 2px;
+}
+
+window.large-screen .value-bar entry {
+    background: whitesmoke;
+    padding: 1px 3px;
+}
+
+window.large-screen .history_bar {
+    margin: 0px;
+}
+
+
+
+
+
+
+
+
 
 
 

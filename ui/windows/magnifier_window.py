@@ -3,14 +3,14 @@ gi.require_version("Gtk", "4.0")
 gi.require_version("Gdk", "4.0")
 
 from gi.repository import Gtk, Gdk, GLib
-from nKolor.ui.widgets.crosshair import Crosshair
-from nKolor.utils.color import Color
-from nKolor.ui.widgets.color_view import ColorView, ColorViewType
+from nkolor.ui.widgets.crosshair import Crosshair
+from nkolor.utils.color import Color
+from nkolor.ui.widgets.color_view import ColorView, ColorViewType
 
 # if os.environ.get("WAYLAND_DISPLAY"):
 #     from app.utils.backend import BackendWayland as Backend
 # else:
-from nKolor.utils.backend import BackendX11 as Backend
+from nkolor.utils.backend import BackendX11 as Backend
 
 
 class MagnifierWindow(Gtk.ApplicationWindow):
@@ -27,7 +27,7 @@ class MagnifierWindow(Gtk.ApplicationWindow):
         self.set_decorated(False)
         self.set_resizable(False)
         self.set_focusable(False)
-        self.set_opacity(0.95)
+        self.set_opacity(0.0)
 
         self.size = int(self.capture_size * self.magnification)
         self.set_default_size(self.size, self.size)
@@ -67,16 +67,23 @@ class MagnifierWindow(Gtk.ApplicationWindow):
             return
 
         self.running = True
+        self.set_opacity(0.0)
         self.show()
         self.backend.bind_window(self)
         self.backend.set_window_on_top()
 
         GLib.timeout_add(16, self.tick)
+        GLib.timeout_add(150, self.display)
 
+    # added a small delay before displaying the window to avoid flickering
+    def display(self):
+        self.set_opacity(0.95)
+        return False
 
     # close the window and stop scanning the surface of the screen
     def stop(self):
         self.running = False
+        self.set_opacity(0.0)
         self.hide()
 
 
