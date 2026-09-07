@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.kritikov.nkolor</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL 3.0</project_license>
+  <name>nKolor</name>
+  <summary>Screen color picker and magnifier</summary>
+  <description>
+    <p>
+      nKolor is a screen color picker and magnifier tool for Linux,
+      letting you sample colors from anywhere on your screen.
+    </p>
+  </description>
+  <launchable type="desktop-id">io.github.kritikov.nkolor.desktop</launchable>
+  <content_rating type="oars-1.1" />
+</component>
