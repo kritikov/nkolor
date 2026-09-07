@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=nKolor
+Comment=Screen color picker and magnifier
+Exec=nkolor
+Icon=io.github.kritikov.nkolor
+Categories=Graphics;
+Terminal=false
+StartupNotify=true
