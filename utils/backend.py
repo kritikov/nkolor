@@ -126,16 +126,16 @@ class BackendWayland:
         pass
 
     def get_screen_dimensions(self):
-        return 0, 0  # θα το γεμίσουμε από screencast info
+        return 0, 0  
 
     def get_mouse_position(self):
-        return 0, 0  # pointer tracking μέσω portal ή frame
+        return 0, 0  
 
     def move_window(self, posX, posY, offset_x, offset_y, size):
         pass
 
     def capture_image(self, posX, posY, capture_size):
-        return None  # ή από PipeWire frame
+        return None  
 
     def get_color_under_cursor(self):
         return 0, 0, 0
