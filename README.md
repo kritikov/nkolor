@@ -1,5 +1,5 @@
 
-nKolor is a color picker for Linux designed to make color selection simple and fast. The application has been tested on Linux Mint and is currently available as an AppImage, providing a straightforward installation and usage experience.
+nKolor is a color picker for Linux designed to make color selection simple and fast. The application has been tested on Linux Mint.
 
 The application allows users to manage and select colors in several ways. Colors can be picked directly from the screen using a magnifier that provides pixel-accurate selection, or through the built-in HSV picker. It supports multiple color formats, including RGB, HSL, and HSV, with a live preview for every change. Users can also benefit from a color history, which stores recently used colors for quick reuse, and a similar color selection feature, which displays nearby tones to facilitate the creation of harmonious palettes.
 
