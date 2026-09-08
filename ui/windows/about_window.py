@@ -21,7 +21,7 @@ class AboutWindow(Gtk.ApplicationWindow):
         app_name.add_css_class("about-title")
         root_child.append(app_name)
 
-        version = Gtk.Label(label="Version: 1.1.0")
+        version = Gtk.Label(label="Version: 1.2.1")
         version.add_css_class("about-subtitle")
         root_child.append(version)
 
